@@ -1,26 +1,13 @@
-[
-    {
-        "Sid": "DenyUnencryptedObjectUploads",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": "s3:PutObject",
-        "Resource": "arn:aws:s3:::你的存储桶名称/*",
-        "Condition": {
-            "StringNotEquals": {
-                "s3:x-amz-server-side-encryption": "aws:kms"
-            }
-        }
-    },
-    {
-        "Sid": "DenyPutsThatDoNotEncryptTheObject",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": "s3:PutObject",
-        "Resource": "arn:aws:s3:::你的存储桶名称/*",
-        "Condition": {
-            "Null": {
-                "s3:x-amz-server-side-encryption": "true"
-            }
-        }
-    }
-]
+<changeSet id="add_idx_t_sms_info_policy_no" author="stone">
+    
+    <preConditions onFail="MARK_RAN">
+        <not>
+            <indexExists indexName="idx_t_sms_info_policy_no" tableName="T_SMS_INFO"/>
+        </not>
+    </preConditions>
+
+    <createIndex indexName="idx_t_sms_info_policy_no" tableName="T_SMS_INFO">
+        <column name="POLICY_NO"/>
+    </createIndex>
+    
+</changeSet>
